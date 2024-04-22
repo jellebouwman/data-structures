@@ -5,6 +5,8 @@
 // Assume there are no duplicate numbers,
 // Assume count starts at 0
 
+// This implementation is O(2N) speed,
+// and creates a hashtable of size N
 export function findMissingNumber(numberArray: number[]): number {
   if (numberArray.length === 0) {
     return 0;
@@ -24,9 +26,8 @@ export function findMissingNumber(numberArray: number[]): number {
   numberArray.forEach((n) => {
     if (!hashTableValues[n]) {
       throw new Error(`Duplicate value '${n}' found in array`);
-    } else {
-      delete hashTableValues[n];
     }
+    delete hashTableValues[n];
   });
 
   const hashTableKeys = Object.keys(hashTableValues);
@@ -40,4 +41,30 @@ export function findMissingNumber(numberArray: number[]): number {
   }
 
   return Number(hashTableKeys[0]);
+}
+
+// This implementation calculates the total sum of all numbers in the array
+// And compares it with the theoretical sum the array should have been
+// when the missing number is included.
+
+// We can return the number by subtracting the found sum from the full sum.
+// This is more space efficient (only creates 2 ints instead of a N sized hashmap),
+// time efficiency is the same O(2N)
+export function findMissingNumberTwo(numberArray: number[]): number {
+  let maximumSum = 0;
+  let foundSum = 0;
+
+  // Number array misses one integer that we should check for.
+  const hashTableLength = numberArray.length + 1;
+
+  // O(N)
+  for (let i = 0; hashTableLength > i; i++) {
+    maximumSum += i;
+  }
+
+  numberArray.forEach((n) => {
+    foundSum += n;
+  });
+
+  return maximumSum - foundSum;
 }
