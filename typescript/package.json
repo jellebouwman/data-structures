@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest --silent=false"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "tsx": "^4.7.2"
+  },
+  "devDependencies": {
+    "vitest": "^1.5.0"
   }
 }
